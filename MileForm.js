@@ -28,32 +28,66 @@ const cost = (
 export default class MileForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "1 mile", cost: "$" };
+    // this.state = { value: "1 mile", cost: "$" };
+    this.handleisClicked = this.handleisClicked.bind(this)
+    this.state = {isClicked: false};
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value, cost: event.target.cost });
+  handleisClicked() {
+    this.setState({isClicked: true});
   }
 
   render() {
+    const isClicked = this.state.isClicked; 
+
+    let button = <SubmitButton onClick={this.handleisClicked}/>; 
+
     return (
-      <form>
+      <div> 
+        <form onSubmit={this.handleSubmit}>
         <label>
-          I'm looking for a restaurant within....
-          <Dropdown overlay={miles}>
-            <a className="ant-dropdown-link" href="#">
-              miles <Icon type="down" />
-            </a>
-          </Dropdown>
-           ...that...
+        </label>
+      </form>
+      <Criteria1 isClicked ={isClicked} />
+        {button}
+      </div>
+    );
+  }
+}
+
+function FirstQ(props) {
+  return <div> 
+    I'm looking for a restaurant within....
+      <Dropdown overlay={miles}>
+        <a className="ant-dropdown-link" href="#">
+            miles <Icon type="down" />
+        </a>
+    </Dropdown>
+    ...that...
           <Dropdown overlay={cost}>
             <a className="ant-dropdown-link" href="#">
               costs <Icon type="down" />
             </a>
           </Dropdown>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
+  </div>
+}
+
+function SecondQ(props) {
+  return <h2>Sentence 2</h2>;
+}
+
+function Criteria1(props) {
+  const isClicked = props.isClicked; 
+  if (isClicked) {
+    return <SecondQ/>;
   }
+  return <FirstQ/>;
+}
+
+function SubmitButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Submit
+    </button>
+  )
 }
