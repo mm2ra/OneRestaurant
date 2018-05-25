@@ -6,6 +6,18 @@ import YelpAPI from "./YelpAPI";
 import axios from "axios";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClicked: false
+      // newQ: ""
+    };
+  }
+
+  // handleClick = question => {
+  //   this.setState({ isClicked: true, newQ: question });
+  // };
+
   render() {
     return (
       <div className="App">
@@ -17,8 +29,8 @@ class App extends Component {
           </h2>
         </header>
         <p className="App-intro" />
-        <MileForm />
-        <YelpAPI />
+        <MileForm handleClick={this.handleClick} />
+        <YelpAPI handleClick={this.handleClick} />
       </div>
     );
   }

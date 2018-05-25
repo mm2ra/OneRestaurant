@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+import MileForm from "./MileForm";
+import App from "./App";
 
 export default class YelpAPI extends React.Component {
   constructor(props) {
@@ -26,12 +28,15 @@ export default class YelpAPI extends React.Component {
 
   render() {
     let output = [];
-    for (let i = 0; i < this.state.namecost.length; i++) {
-      if (this.state.namecost[i].price == "$") {
-        output.push(this.state.namecost[i]);
+    if (this.props.isClicked) {
+      for (let i = 0; i < this.state.namecost.length; i++) {
+        console.log(this.props.cost);
+        if (this.state.namecost[i].price == this.props.cost) {
+          output.push(this.state.namecost[i]);
+        }
       }
+      console.log(output);
     }
-    console.log(output);
     return <output />;
   }
 }
