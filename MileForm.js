@@ -1,93 +1,62 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import YelpAPI from './YelpAPI';
-import 'antd/dist/antd.css';
-import { Menu, Dropdown, Icon, message } from 'antd';
+import YelpAPI from "./YelpAPI";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import FlatButton from 'material-ui/FlatButton';
 
-const onClick = function ({ key }) {
-    message.info('Click on item ${key}');
-}
+const miles = [
+  <MenuItem key={1} value={1} primaryText="1 mile" />,
+  <MenuItem key={2} value={2} primaryText="5 miles" />,
+  <MenuItem key={3} value={3} primaryText="20 miles" />,
+  <MenuItem key={4} value={4} primaryText="50 miles" />
+];
 
-const miles = (
-  <Menu onClick={onClick}>
-    <Menu.Item key="1">1 mile</Menu.Item>
-    <Menu.Item key="2">5 miles</Menu.Item>
-    <Menu.Item key="3">10 miles</Menu.Item>
-  </Menu>
-);
-
-const cost = (
-  <Menu onClick={onClick}>
-    <Menu.Item key="1">$</Menu.Item>
-    <Menu.Item key="2">$$</Menu.Item>
-    <Menu.Item key="3">$$$</Menu.Item>
-  </Menu>
-);
+const cost = [
+  <MenuItem key={1} value={1} primaryText="$" />,
+  <MenuItem key={2} value={2} primaryText="$$" />,
+  <MenuItem key={3} value={3} primaryText="$$$" />
+];
 
 export default class MileForm extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = { value: "1 mile", cost: "$" };
-    this.handleisClicked = this.handleisClicked.bind(this)
-    this.state = {isClicked: false};
+    this.state = {
+      value: null,
+      isClicked: false, 
+    };
   }
 
-  handleisClicked() {
-    this.setState({isClicked: true});
-  }
+  handleChange = (event, index, value) => this.setState({ value: value });
+
+  handleClick =() => this.setState({isClicked: true});
 
   render() {
-    const isClicked = this.state.isClicked; 
-
-    let button = <SubmitButton onClick={this.handleisClicked}/>; 
-
     return (
-      <div> 
-        <form onSubmit={this.handleSubmit}>
-        <label>
-        </label>
-      </form>
-      <Criteria1 isClicked ={isClicked} />
-        {button}
+      <div>
+        I am looking for a restaurant within
+        <MuiThemeProvider>
+          <SelectField
+            value={this.state.value}
+            onChange={this.handleChange}
+            floatingLabelText="miles"
+          >
+            {miles}
+          </SelectField>
+          that
+          <SelectField
+            value={this.state.value}
+            onChange={this.handleChange}
+            floatingLabelText="costs"
+          >
+            {cost}
+          </SelectField>
+          <br />
+          <FlatButton label="More Criteria" onClick={this.handleClick} />
+        </MuiThemeProvider>
+        <YelpAPI {...this.state} />
       </div>
     );
   }
-}
-
-function FirstQ(props) {
-  return <div> 
-    I'm looking for a restaurant within....
-      <Dropdown overlay={miles}>
-        <a className="ant-dropdown-link" href="#">
-            miles <Icon type="down" />
-        </a>
-    </Dropdown>
-    ...that...
-          <Dropdown overlay={cost}>
-            <a className="ant-dropdown-link" href="#">
-              costs <Icon type="down" />
-            </a>
-          </Dropdown>
-  </div>
-}
-
-function SecondQ(props) {
-  return <h2>Sentence 2</h2>;
-}
-
-function Criteria1(props) {
-  const isClicked = props.isClicked; 
-  if (isClicked) {
-    return <SecondQ/>;
-  }
-  return <FirstQ/>;
-}
-
-function SubmitButton(props) {
-  return (
-    <button onClick={props.onClick}>
-      Submit
-    </button>
-  )
 }
