@@ -4,7 +4,6 @@ import "./App.css";
 import MileForm from "./MileForm";
 import YelpAPI from "./YelpAPI";
 import axios from "axios";
-import response from "./response.js";
 
 class App extends Component {
   render() {
@@ -14,13 +13,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">OneRestaurant</h1>
           <h2>
-            {response}
             Welcome to the website that narrows your search results from Yelp.{" "}
           </h2>
         </header>
         <p className="App-intro" />
         <MileForm />
-        {/* <YelpAPI /> */}
+        <YelpAPI />
       </div>
     );
   }
