@@ -16,8 +16,11 @@ export const criteria = [
     stateName: "rated",
     options: [
       <MenuItem key={2} value="2.0" primaryText="2 stars" />,
+      <MenuItem key={2.5} value="2.5" primaryText="2.5 stars" />,
       <MenuItem key={3} value="3.0" primaryText="3 stars" />,
+      <MenuItem key={3.5} value="3.5" primaryText="3.5 stars" />,
       <MenuItem key={4} value="4.0" primaryText="4 stars" />,
+      <MenuItem key={4.5} value="4.5" primaryText="4.5 stars" />,
       <MenuItem key={5} value="5.0" primaryText="5 star" />
     ]
   },

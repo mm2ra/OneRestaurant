@@ -14,10 +14,6 @@ class App extends Component {
     };
   }
 
-  // handleClick = question => {
-  //   this.setState({ isClicked: true, newQ: question });
-  // };
-
   render() {
     return (
       <div className="App">
@@ -29,8 +25,8 @@ class App extends Component {
           </h2>
         </header>
         <p className="App-intro" />
-        <MileForm handleClick={this.handleClick} />
-        <YelpAPI handleClick={this.handleClick} />
+        <MileForm />
+        <YelpAPI />
       </div>
     );
   }
