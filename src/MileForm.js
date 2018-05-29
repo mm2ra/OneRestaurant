@@ -5,26 +5,7 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import FlatButton from "material-ui/FlatButton";
-
-const miles = [
-  <MenuItem key={1} value="1 mile" primaryText="1 mile" />,
-  <MenuItem key={2} value="5 miles" primaryText="5 miles" />,
-  <MenuItem key={3} value="20 miles" primaryText="20 miles" />,
-  <MenuItem key={4} value="50 miles" primaryText="50 miles" />
-];
-
-const color = [
-  <MenuItem key={1} value="blue" primaryText="blue" />,
-  <MenuItem key={2} value="red" primaryText="red" />,
-  <MenuItem key={3} value="geren" primaryText="geren" />,
-  <MenuItem key={4} value="yellow" primaryText="yellow" />
-];
-
-const cost = [
-  <MenuItem key={1} value="$" primaryText="$" />,
-  <MenuItem key={2} value="$$" primaryText="$$" />,
-  <MenuItem key={3} value="$$$" primaryText="$$$" />
-];
+import * as criteriaArray from "./criteriaArray";
 
 export default class MileForm extends React.Component {
   constructor(props) {
@@ -32,59 +13,54 @@ export default class MileForm extends React.Component {
     this.state = {
       miles: null,
       cost: null,
-      color: null,
-      isClicked: false
+      rated: null,
+      isClicked: false,
+      index: 0
     };
   }
 
-  // handleChange = (event, index, miles) => {
-  //   if (floatingLabelText == "miles") {
-  //     this.setState({ miles: miles });
-  //   }
-  //   if (floatingLabelText == "cost") {
-  //     this.setState({ cost: cost });
-  //   }
-  // };
-
-  handleChange = (event, index, miles) => this.setState({ miles: miles });
-  handleChange2 = (event, index, cost) => this.setState({ cost: cost });
+  handleChange = (event, index, updated) => {
+    let stateName = criteriaArray.criteria[this.state.index].stateName;
+    this.setState({ [[stateName]]: updated });
+    console.log(this.state);
+  };
 
   handleClick = () => {
-    this.setState({ isClicked: true });
+    let newIndex = this.state.index + 1;
+    this.setState({ isClicked: true, index: newIndex });
   };
 
   render() {
-    if (this.state.isClicked) {
-      return (
-        <MuiThemeProvider>
-          <SelectField
-            value={this.state.color}
-            onChange={this.handleChange}
-            floatingLabelText="color"
-          >
-            {color}
-          </SelectField>
-        </MuiThemeProvider>
-      );
-    }
+    let stateName = criteriaArray.criteria[this.state.index].stateName;
+    console.log(stateName);
+    // return (
+    //   <div>
+    //     I am looking for a restaurant that
+    //     <MuiThemeProvider>
+    //       <SelectField
+    //         value={this.state.cost}
+    //         onChange={this.handleChange}
+    //         floatingLabelText="costs"
+    //       >
+    //         {cost}
+    //       </SelectField>
+    //       <br />
+    //       <FlatButton label="More Criteria" onClick={this.handleClick} />
+    //     </MuiThemeProvider>
+    //     <YelpAPI {...this.state} />
+    //   </div>
+    // );
+
     return (
       <div>
-        I am looking for a restaurant within
+        I am looking for a restaurant that
         <MuiThemeProvider>
           <SelectField
-            value={this.state.miles}
+            value={[this.state[stateName]]}
             onChange={this.handleChange}
-            floatingLabelText="miles"
+            floatingLabelText={criteriaArray.criteria[this.state.index].label}
           >
-            {miles}
-          </SelectField>
-          that
-          <SelectField
-            value={this.state.cost}
-            onChange={this.handleChange2}
-            floatingLabelText="costs"
-          >
-            {cost}
+            {criteriaArray.criteria[this.state.index].options}
           </SelectField>
           <br />
           <FlatButton label="More Criteria" onClick={this.handleClick} />
@@ -92,5 +68,85 @@ export default class MileForm extends React.Component {
         <YelpAPI {...this.state} />
       </div>
     );
+
+    // this.criteria.map(item => {
+    //   return(
+    //     <div>
+    //       <MuiThemeProvider>
+    //         <SelectField
+    //           value={this.state.{...item.mystate}}
+    //           onChange={this.handleChange}
+    //           floatingLabelText= {item.label}
+    //         >
+    //           {criteria[i]}
+    //         </SelectField>
+    //         <br />
+    //         <FlatButton label="More Criteria" onClick={this.handleClick} />
+    //       </MuiThemeProvider>
+    //       <YelpAPI {...this.state} />
+    //     </div>
+    //   );
+    // })}
+
+    // for (let i = 0; i < criteria.length; i = i + 2) {
+    //   return (
+    //     <div>
+    //       <MuiThemeProvider>
+    //         <SelectField
+    //           value={this.state. + criteria[i]}
+    //           onChange={this.handleChange}
+    //           floatingLabelText={criteria[i + 1]}
+    //         >
+    //           {criteria[i]}
+    //         </SelectField>
+    //         <br />
+    //         <FlatButton label="More Criteria" onClick={this.handleClick} />
+    //       </MuiThemeProvider>
+    //       <YelpAPI {...this.state} />
+    //     </div>
+    //   );
+    //   if (this.state.isClicked) {
+    //     this.setState({ isClicked: false });
+    //     continue;
+    //   }
+    // }
+
+    // if (this.state.isClicked) {
+    //   return (
+    //     <div>
+    //       <MuiThemeProvider>
+    //         <SelectField
+    //           value={this.state.rated}
+    //           onChange={this.handleChange}
+    //           floatingLabelText="minimum rating"
+    //         >
+    //           {rated}
+    //         </SelectField>
+    //         <br />
+    //         <FlatButton label="More Criteria" onClick={this.handleClick} />
+    //       </MuiThemeProvider>
+    //       <YelpAPI {...this.state} />
+    //     </div>
+    //   );
+    //   this.setState({ isClicked: false });
+    // } else {
+    //   return (
+    //     <div>
+    //       I am looking for a restaurant that
+    //       <MuiThemeProvider>
+    //         <SelectField
+    //           value={this.state.cost}
+    //           onChange={this.handleChange}
+    //           floatingLabelText="costs"
+    //         >
+    //           {cost}
+    //         </SelectField>
+    //         <br />
+    //         <FlatButton label="More Criteria" onClick={this.handleClick} />
+    //       </MuiThemeProvider>
+    //       <YelpAPI {...this.state} />
+    //     </div>
+    //   );
+    // }
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import MileForm from "./MileForm";
@@ -30,7 +29,6 @@ export default class YelpAPI extends React.Component {
     let output = [];
     if (this.props.isClicked) {
       for (let i = 0; i < this.state.namecost.length; i++) {
-        console.log(this.props.cost);
         if (this.state.namecost[i].price == this.props.cost) {
           output.push(this.state.namecost[i]);
         }
