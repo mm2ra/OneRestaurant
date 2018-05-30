@@ -1,1 +1,0 @@
-import criteria from "./criteriaArray";

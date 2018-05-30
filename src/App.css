@@ -1,32 +1,39 @@
-.App {
-  text-align: center;
-}
+@import "`antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css?family=Raleway|Poiret+One");
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.Background {
+  background-image: url("Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: auto;
+  height: 800px;
 }
 
 .App-header {
-  background-color: #222;
   height: 225px;
-  padding: 20px;
-  color: white;
+  padding: 270px;
+  color: darkslategrey;
+  text-align: center;
 }
 
 .App-title {
+  margin: 0.75px;
+  font-size: 3em;
+  text-align: center;
+  font-family: "Poiret One", bold;
+}
+
+.App-blurb {
+  margin: 0.75px;
   font-size: 1.5em;
+  font-family: "Raleway", sans-serif;
 }
 
-.App-intro {
-  font-size: large;
+.Forms {
+  font-size: 1.3em;
+  font-family: "Raleway", sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Next {
+  font-size: 2em;
 }
