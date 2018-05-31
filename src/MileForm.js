@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Select from "@material-ui/core/Select";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import Button from "@material-ui/core/Button";
+import SelectField from "material-ui/SelectField";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import FlatButton from "material-ui/FlatButton";
 import * as criteriaArray from "./criteriaArray";
 
 export default class MileForm extends React.Component {
@@ -121,17 +121,15 @@ export default class MileForm extends React.Component {
       <div>
         I am looking for a restaurant
         <MuiThemeProvider>
-          <Select
+          <SelectField
             value={this.props[stateName]}
             onChange={this.handleChange}
             floatingLabelText={criteriaArray.criteria[this.props.index].label}
           >
             {criteriaArray.criteria[this.props.index].options}
-          </Select>
+          </SelectField>
           <br />
-          <Button color="#004D40" variant="raised" onClick={this.handleClick}>
-            Next Criteria
-          </Button> 
+          <FlatButton label= "Next Criteria" color="#004D40" variant="raised" onClick={this.handleClick}/>
         </MuiThemeProvider>
       </div>
     );
