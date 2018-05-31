@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
 import SelectField from "material-ui/SelectField";
+import { createMuiTheme } from '@material-ui/core/styles';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import FlatButton from "material-ui/FlatButton";
+import Button from "@material-ui/core/Button";
 import * as criteriaArray from "./criteriaArray";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import CardActions from '@material-ui/core/CardActions';
 
 export default class MileForm extends React.Component {
   constructor(props) {
@@ -84,13 +89,24 @@ export default class MileForm extends React.Component {
         );
       }
       return (
-        <div>
-          Here is your restaurant:
-          <br />
-          {myRest.name}
-          <br />
-          {myRest.url}
-        </div>
+        <div className= "Restaurant">
+        <Card>
+        <CardContent>
+          <Typography color="darkslategrey">
+            OneRestaurant
+          </Typography>
+          <Typography variant="headline" component="h2">
+            {myRest.name}
+          </Typography>
+        </CardContent>
+        <img src={myRest.image} width="400" height="341"/>
+        <CardActions className= "Link"> 
+          <Button style={{backgroundColor: "#A6BDB1"}} size="small" variant="outlined">
+            <a href={myRest.url}>See on Yelp</a> 
+          </Button>
+        </CardActions>
+        </Card>
+      </div>
       );
     } else if (
       this.props.index == criteriaArray.criteria.length - 1 &&
@@ -106,32 +122,50 @@ export default class MileForm extends React.Component {
         );
       }
       return (
-        <div>
-          Here is your restaurant:
-          <br />
-          {myRest.name}
-          <br />
-          {myRest.url}
+         <div className= "Restaurant">
+          <Card>
+          <CardContent>
+            <Typography color="darkslategrey">
+              OneRestaurant
+            </Typography>
+            <Typography variant="headline" component="h2">
+              {myRest.name}
+            </Typography>
+          </CardContent>
+          <img src={myRest.image} width="400" height="341"/>
+          <CardActions className= "Link"> 
+            <Button style={{backgroundColor: "#A6BDB1"}} size="small" variant="outlined">
+              <a href={myRest.url}>See on Yelp</a> 
+            </Button>
+          </CardActions>
+          </Card>
         </div>
       );
     }
     let stateName = criteriaArray.criteria[this.props.index].stateName;
 
     return (
-      <div>
+      <div className= "Main"> 
         I am looking for a restaurant
         <MuiThemeProvider>
-          <SelectField
+          <SelectField className = "Selection"
             value={this.props[stateName]}
             onChange={this.handleChange}
             floatingLabelText={criteriaArray.criteria[this.props.index].label}
+            floatingLabelFixed={true}
+            floatingLabelStyle={{color: 'darkslategrey'}}
+            maxWidth={true}
+            underlineStyle={{ borderColor: 'darkslategrey' }}
           >
             {criteriaArray.criteria[this.props.index].options}
           </SelectField>
           <br />
-          <FlatButton label= "Next Criteria" color="#004D40" variant="raised" onClick={this.handleClick}/>
+          <br />
+          <Button style={{backgroundColor: "#A6BDB1"}} size="small" variant="outlined" onClick={this.handleClick}>
+            Next Criteria
+          </Button>
         </MuiThemeProvider>
-      </div>
+        </div> 
     );
   }
 }

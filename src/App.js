@@ -27,6 +27,7 @@ class App extends Component {
         restaurant => restaurant.categories
       );
       const urls = data.businesses.map(restaurant => restaurant.url);
+      const image_url = data.businesses.map(restaurant => restaurant.image_url);
       let rests = [];
       for (let i = 0; i < names.length; i++) {
         rests.push({
@@ -34,7 +35,8 @@ class App extends Component {
           price: prices[i],
           rating: ratings[i],
           categories: categories[i],
-          url: urls[i]
+          url: urls[i],
+          image: image_url[i]
         });
       }
       this.setState({ rests: rests });
